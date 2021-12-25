@@ -13,3 +13,17 @@ print(period)
 print(short_desc)
 print(temp)
 
+img = tonight.find("img")
+desc = img['title']
+print(desc)
+
+period_tags = seven_day.select('.tombstone-container .period-name')
+periods = [pt.get_text() for pt in period_tags]
+print(periods)
+
+short_descs = [sd.get_text() for sd in seven_day.select('.tombstone-container .short-desc')]
+temps = [t.get_text() for t in seven_day.select('tombstone- container .temp')]
+descs = [d['title'] for d in seven_day.select('.tombstone-container img')]
+print(short_descs)
+print(temps)
+print(descs)
