@@ -28,3 +28,5 @@ def calc_camber(txt):
     df = df.rename(columns={0:'X', 1:'Y'})
     df = df.drop(2, axis=1, errors='ignore')
     print(df)
+    
+    

@@ -5,6 +5,9 @@ import requests
 # User Defined Functions
 from Function_File import *
 
+
+# Enter your airfoils as strings        
+chosen = ['fx76mp140', 'naca2421', 'e420', 's1223']
 # Base URL
 Base_URL = 'http://airfoiltools.com'
 # Retrieve airfoiltools html data
@@ -21,8 +24,6 @@ approved = '/airfoil/details'
 for airfoil in links_placehold:
     if approved in airfoil:
         links.append(airfoil)
-# Enter your airfoils as strings        
-chosen = ['fx76mp140', 'naca2421', 'e420', 's1223']
 airfoil_name = [] 
 # Allows user to enter airfoil name with capitals and spaces
 for choice in chosen:
@@ -30,7 +31,6 @@ for choice in chosen:
     for airfoil in links:
         if choice in airfoil.lower().replace(' ', ''):
             airfoil_name.append(airfoil)
-print(airfoil_name[0])
 # Allows user to double check that all the proper airfoils have been selected
 final_check = 'n'
 while final_check == 'n':
@@ -57,17 +57,20 @@ for airfoil in airfoil_name:
     airfoil_page = requests.get(URL)
     soup2 = BeautifulSoup(airfoil_page.content, 'lxml')
     # Save .dat data file to text file
-    dat = soup2.find('td', class_='cell2')
-    airfoil_data = airfoil.partition('=')[2]
+    dat = soup2.find('td', class_='cell4')
+    print(dat.prettify())
+ #   airfoil_data = airfoil.partition('=')[2]
     # Create folder for each airfoil
-    name = save_file(airfoil_data, dat)
-    text_files.append(name)
+ #   name = save_file(airfoil_data, dat)
+ #   text_files.append(name)
 
 # Perform Calculations on each airfoil
-for file in text_files:
-    calc_camber(file)
+#for file in text_files:
+#    calc_camber(file)
     
         
 
-        # Save .dat link
-        # Link for airfoil data found at line 383
+# TODO Find lift and drag vs alpha data
+# TODO Calculate camber line and plot airfoil -> Save as png
+# TODO Thin airfoil theory and vortex panel solver
+# TODO Plot lift and drag data -> Save as png
