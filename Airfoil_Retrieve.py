@@ -1,6 +1,9 @@
+# Imported Functions
 from bs4 import BeautifulSoup
 import requests
-import re
+
+# User Defined Functions
+from Function_File import *
 
 # Base URL
 Base_URL = 'http://airfoiltools.com'
@@ -19,7 +22,7 @@ for airfoil in links_placehold:
     if approved in airfoil:
         links.append(airfoil)
 # Enter your airfoils as strings        
-chosen = ['fx76mp140', 'naca2421', 'e420']
+chosen = ['fx76mp140', 'naca2421', 'e420', 's1223']
 airfoil_name = [] 
 # Allows user to enter airfoil name with capitals and spaces
 for choice in chosen:
@@ -27,19 +30,43 @@ for choice in chosen:
     for airfoil in links:
         if choice in airfoil.lower().replace(' ', ''):
             airfoil_name.append(airfoil)
+print(airfoil_name[0])
+# Allows user to double check that all the proper airfoils have been selected
+final_check = 'n'
+while final_check == 'n':
+    for i in range(len(airfoil_name)):
+        name = airfoil_name[i]
+        print(str(i) + ': ' + name[name.find('=') + len('='):name.rfind('-')])
+    check = input('Are there any airfoils to remove from the list? [y/n]\n')
+    if check == 'y':
+        remove = input('Please type the index of the airfoil you wsh to remove.\n')
+        airfoil_name.pop(int(remove))
+        print('The airfoil list is now: \n')
+        for i in range(len(airfoil_name)):
+            name = airfoil_name[i]
+            print(str(i) + ': ' + name[name.find('=') + len('='):name.rfind('-')])
+        final_check = input('Is this correct? [y/n]\n')
+    else:
+        break
+            
+            
+text_files = [] 
 # Retrieve data for each airfoil
 for airfoil in airfoil_name:
     URL = Base_URL + airfoil
     airfoil_page = requests.get(URL)
     soup2 = BeautifulSoup(airfoil_page.content, 'lxml')
-    # Find XFOIL data for Re = 1 million for airfoil
-    airfoil_links = []
-    dat_link = []
+    # Save .dat data file to text file
     dat = soup2.find('td', class_='cell2')
-    airfoil_data = open(airfoil.partition('=')[2] + ".txt", "w")
-    n = airfoil_data.write(dat.text.strip())
-    airfoil_data.close()
-    print(dat.text)
+    airfoil_data = airfoil.partition('=')[2]
+    # Create folder for each airfoil
+    name = save_file(airfoil_data, dat)
+    text_files.append(name)
+
+# Perform Calculations on each airfoil
+for file in text_files:
+    calc_camber(file)
+    
         
 
         # Save .dat link
