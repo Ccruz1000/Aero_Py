@@ -2,17 +2,17 @@ import os
 import pandas as pd
 
 
-def save_file(name, data):
+def save_file(name, data, file_type):
     current_path = os.getcwd()
     # Create new folder
     new_folder = current_path + '/' + name
     if not os.path.exists(new_folder):
         os.makedirs(new_folder, exist_ok=True)
     # Create save path for files
-    output_file1 = os.path.join(new_folder, 'stripped_' + name + '.txt')
-    output_file2 = os.path.join(new_folder, name + '.txt')
+    output_file1 = os.path.join(new_folder, 'stripped_' + name + '_' + file_type + '.txt')
+    output_file2 = os.path.join(new_folder, name + '_' + file_type + '.txt')
     airfoil_data = open(output_file1, 'w')
-    airfoil_data.write(data.text.strip())
+    airfoil_data.write(data.strip())
     airfoil_data.close()
     # Remove trailing and leading whitepsace from each line
     with open(output_file1, 'r') as infile, open(output_file2, 'w') as outfile:
