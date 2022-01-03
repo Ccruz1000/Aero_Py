@@ -85,6 +85,10 @@ for airfoil in airfoil_name:
     lednicer_page = requests.get(Base_URL + lednicer[0])
     lednicer_data = lednicer_page.text
     save_file(airfoil_name, lednicer_data, 'lednicer')
+    # Save Polar file
+    polar_page = requests.get(Base_URL + polar[0])
+    polar_data = polar_page.text
+    save_file(airfoil_name, polar_data, 'polar')
 
 # Perform Calculations on each airfoil
 #for file in text_files:
