@@ -12,11 +12,12 @@ pd.set_option("display.max_rows", None, "display.max_columns", None)
 chosen = ['fx76mp140', 'naca2421', 'e420', 's1223']
 Reynolds = '1000000'
 # chosen = ['fx76mp140']
+num_points = 150  # Select how many points to approximate airfoil with
 # Base URL
 Base_URL = 'http://airfoiltools.com'
 # Retrieve airfoiltools html data
 page = requests.get('http://airfoiltools.com/search/airfoils')
-soup = BeautifulSoup(page.content, 'lxml')
+soup = BeautifulSoup(page.content, features='html.parser')
 
 # Retrieve all hyperlinks from html page, and then remove all that aren't for an airfoil
 links_placehold =[]
@@ -35,6 +36,7 @@ for choice in chosen:
     for airfoil in links:
         if choice in airfoil.lower().replace(' ', ''):
             airfoil_name.append(airfoil)
+
 # Allows user to double check that all the proper airfoils have been selected
 # final_check = 'n'
 # while final_check == 'n':
@@ -57,12 +59,13 @@ for choice in chosen:
 # Retrieve data for each airfoil
 for airfoil in airfoil_name:
     links2 = []
+    links3 = []
     polar = []
     selig = []
     lednicer = []
     URL = Base_URL + airfoil
     airfoil_page = requests.get(URL)
-    soup2 = BeautifulSoup(airfoil_page.content, 'lxml')
+    soup2 = BeautifulSoup(airfoil_page.content, features='html.parser')
     # Get all links on airfoil page
     for link in soup2.find_all('a'):
         links2.append(link.get('href'))
@@ -84,19 +87,18 @@ for airfoil in airfoil_name:
     # Save Lednicer .dat filetype
     lednicer_page = requests.get(Base_URL + lednicer[0])
     lednicer_data = lednicer_page.text
-    save_file(airfoil_name, lednicer_data, 'lednicer')
+    file, new_folder, data_folder, plot_folder = save_file(airfoil_name, lednicer_data, 'lednicer')
+    camber, top, bottom = calc_camber(file, num_points, airfoil_name, plot_folder)
     # Save Polar file
     polar_page = requests.get(Base_URL + polar[0])
-    polar_data = polar_page.text
-    save_file(airfoil_name, polar_data, 'polar')
+    soup3 = BeautifulSoup(polar_page.content, features='html.parser')
+    for link in soup3.find_all('a'):
+        links3.append(link.get('href'))
+    for link in links3:
+        if 'csv' in link:
+            csv = Base_URL + link
+    df = pd.read_csv(csv, skiprows=10)
+    df.to_csv(data_folder + '/' + airfoil_name + '_XFOIL_Data' + '.csv', index=False, encoding='utf-8-sig')
 
-# Perform Calculations on each airfoil
-#for file in text_files:
-#    calc_camber(file)
-    
-        
-
-# TODO Find lift and drag vs alpha data
-# TODO Calculate camber line and plot airfoil -> Save as png
 # TODO Thin airfoil theory and vortex panel solver
 # TODO Plot lift and drag data -> Save as png

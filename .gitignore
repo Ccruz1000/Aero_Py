@@ -130,3 +130,9 @@ dmypy.json
 
 # Text files
 *.txt
+
+# Images
+*.png
+
+# CSV
+*.csv
