@@ -12,5 +12,5 @@ The following steps are taken to use Aero_Py.
 2. Edit chosen to reflect the airfoils that you wish to analyze. 
 3. Select the desired Reynolds number. The available Reynolds numbers can be found in the comment beside the Reynolds variable. 
 4. If the user desires they can change the number of points the airfoil will be approximated by, as well as the step size for the numerical differentiation. However, this is not required. 
-5. Follow the prompts to double check the airfoil. Take care to follow the prompts properly, as improper entering of data can cause the program to error. If the airfoil you have desired does not appear in the list, double check that the name is entered properly, and check how it appears on airfoiltools.com. 
+5. Follow the prompts to double check the airfoil. Take care to follow the prompts properly, as improper entering of data can cause the program to error. If the airfoil you have desired does not appear in the list, double check that the name is entered properly, and check how it appears on [airfoiltools](airfoiltools.com). 
 6. Wait for the program to finish. Once the program is finished, all of the airfoil data will be found in the same directory as the python files. 
