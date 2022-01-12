@@ -109,8 +109,8 @@ for airfoil in airfoil_name:
     plt.close('all')
     # plt.show()
     # Moment plot
-    plt.plot(df['Alpha'], calc_cm, color='r', label='Thin Airfoil CM')
-    plt.plot(df['Alpha'], df['Cl'], color='b', label='XFoil CM')
+    # plt.plot(df['Alpha'], calc_cm, color='r', label='Thin Airfoil CM')
+    plt.plot(df['Alpha'], df['Cm'], color='b', label='XFoil CM')
     plt.legend(loc='best')
     plt.xlabel('Alpha (Deg)')
     plt.ylabel('CM')
@@ -144,3 +144,4 @@ for airfoil in airfoil_name:
     # plt.show()
 
 # TODO create vortex panel solver, and plot vortex panel data
+# TODO find why moment coefficient isnt calculated properly
