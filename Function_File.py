@@ -64,10 +64,29 @@ def calc_camber(txt, num_points, name, folder):
     plt.ylim((-0.5, 0.5))
     plt.xlabel('x/c')
     plt.ylabel('y/c')
-    plt.title(name[:-3])
+    plt.title(name)
     plt.legend(loc='best')
     plt.savefig(folder + '/' + name + '.png', bbox_inches='tight')
-    plt.figure()
+    plt.close('all')
     # plt.show()
-    return camber, top_new(x_new), bottom_new(x_new)
+    return x_new, camber, top_new(x_new), bottom_new(x_new)
 
+
+def integrate(x, y):
+    # Performs a second-order trapezoidal rule integration
+    val = 0
+    for i in range(0, len(x) - 1):
+        val = val + 0.5 * (y[i] + y[i + 1]) * (x[i + 1] - x[i])
+        return val
+
+
+def remove_airfoil(airfoil_list):
+    for i in range(len(airfoil_list)):
+        name = airfoil_list[i]
+        print(str(i) + ': ' + name[name.find('=') + len('='):name.rfind('-')])
+    check = input('Are there any airfoils to remove from the list? [y/n]\n')
+    if check.lower() == 'y':
+        remove = input('Please type the index of the airfoils you wish to remove with no spaces.\n')
+        for index in sorted(list(remove), reverse=True):
+            del(airfoil_list[int(index)])
+    return airfoil_list
