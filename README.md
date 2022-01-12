@@ -5,6 +5,7 @@ Aero_Py is a tool to aid in the process of selecting and validating an airfoil. 
 - Cm Vs Alpha
 - Cl/CD Vs Alpha
 - Cl Vs Cd
+
 It will also calculate coordinates for the camber line. Then it will save text files of the camber line and of both the lednicer and selig format files for the airfoil coordinates. It will also save a csv file of the aerodynamic data fetched from [airfoiltools](airfoiltools.com), as well as that calculated. It will create a folder for each airfoil selected, as well as subfolders for the data and the plots that are saved. 
 ## How to use
 The following steps are taken to use Aero_Py. 
