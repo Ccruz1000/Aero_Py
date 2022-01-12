@@ -141,5 +141,4 @@ for airfoil in airfoil_name:
     plt.close('all')
     # plt.show()
 
-
 # TODO create vortex panel solver, and plot vortex panel data
