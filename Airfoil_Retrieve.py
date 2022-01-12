@@ -35,7 +35,7 @@ for choice in chosen:
         if choice in airfoil.lower().replace(' ', ''):
             airfoil_name.append(airfoil)
 
-# Allows user to double check that all the proper airfoils have been selected
+# Allows user to double check that all the proper airfoils have been selected. Comment out if you don't want to do this.
 airfoil_name = remove_airfoil(airfoil_name)
 
 # Retrieve data for each airfoil
@@ -94,6 +94,8 @@ for airfoil in airfoil_name:
         cl, cm = thin_airfoil(alpha, camber, x_coord, h)
         calc_cl.append(cl)
         calc_cm.append(cm)
+    calc_save = pd.DataFrame({'Alpha': df['Alpha'], 'Cl': calc_cl, 'Cm' : calc_cm})
+    calc_save.to_csv(data_folder + '/' + airfoil_name + '_calculated.csv', index=False, encoding='utf-8-sig')
 
     # Create plots to compare with calculated data
     # Lift plot

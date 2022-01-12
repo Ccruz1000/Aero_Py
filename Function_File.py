@@ -86,7 +86,10 @@ def remove_airfoil(airfoil_list):
         print(str(i) + ': ' + name[name.find('=') + len('='):name.rfind('-')])
     check = input('Are there any airfoils to remove from the list? [y/n]\n')
     if check.lower() == 'y':
-        remove = input('Please type the index of the airfoils you wish to remove with no spaces.\n')
-        for index in sorted(list(remove), reverse=True):
-            del(airfoil_list[int(index)])
+        remove = input('Please type the index of the airfoils you wish to remove with spaces.\n')
+        remove = list(map(int, remove.split()))
+        counter = 0
+        for index in remove:
+            del(airfoil_list[index - counter])
+            counter += 1  # Required because list will get shorter as items are deleted
     return airfoil_list
