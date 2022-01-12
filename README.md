@@ -1,5 +1,5 @@
 # Aero_Py
-Aero_Py is a tool to aid in the process of selecting and validating an airfoil. The file works by first using BeautifulSoup to scrape [airfoiltools](airfoiltools.com) and fetch data about all the airfoils that the user has selected. It will then generate and save plots for the following. It will validate the lift and moment data using thin airfoil theory, and plot these curves alongside the fetched data. 
+Aero_Py is a tool to aid in the process of selecting and validating an airfoil. The file works by first using BeautifulSoup to scrape airfoiltools.com and fetch data for each airfoil selected by the user. It will validate the fetched lift and moment data using thin airfoil theory, and plot these curves alongside the fetched data. It will then generate and save plots for the following.  
 - Cl Vs Alpha
 - Cd Vs Alpha
 - Cm Vs Alpha
